@@ -40,6 +40,14 @@ export const user = {
     logout: async () => {
         await removeSecureData(USER_DATA);
         userDataCache = null;
+        let configData = await getSecureData(CONFIG_DATA);
+        if (!configData) {
+            configData = {};
+        }
+        configData.serverUrl = "+";
+        await setSecureData(CONFIG_DATA, JSON.stringify(configData));
+        configDataCache = configData;
+        console.log('Server URL cleaned successfully:', serverUrl);
     },
     isLoggedIn : async () => {
         if (userDataCache && Object.keys(userDataCache).length > 0) {
@@ -275,10 +283,19 @@ export const configuration = {
 
    
     removeConfigData: async () => {
-        console.log('Removing config data');
-        await removeSecureData(CONFIG_DATA);
-        configDataCache = null;
-        console.log('Config data removed successfully.');
+        // console.log('Removing config data');
+        // await removeSecureData(CONFIG_DATA);
+        // configDataCache = null;
+        // console.log('Config data removed successfully.');
+
+        let configData = await getSecureData(CONFIG_DATA);
+        if (!configData) {
+            configData = {};
+        }
+        configData.serverUrl = "+";
+        await setSecureData(CONFIG_DATA, JSON.stringify(configData));
+        configDataCache = configData;
+        console.log('Server URL cleaned successfully:', serverUrl);
     },
 
     getServerUrl: async () => {

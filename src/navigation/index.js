@@ -8,7 +8,7 @@ import {logger} from '../common/logger';
 import {configuration, user} from '../common/user';
 import {loginSuccess} from '../screens/Login/loginReducer';
 import {hideLoader, showLoader} from '../components/customLoader/reducer';
-import { ServerConnectSuccess } from '../screens/ServerConnect/serverConnectSlice';
+import { ServerConnectSuccess, disconnectServer } from '../screens/ServerConnect/serverConnectSlice';
 
 const AppNavigationContainer = () => {
   const routeNameRef = React.useRef();
@@ -23,9 +23,23 @@ const AppNavigationContainer = () => {
 
     const userData = await user.isLoggedIn();
     const configurationData = await configuration.getServerUrl();
-    
+
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%", configurationData, userData)
+
+    console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+
     if (configurationData) {
-      dispatch(ServerConnectSuccess());
+      if (configurationData === "+") {
+        console.log("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ || ++++++++++++++++")
+        dispatch(disconnectServer());
+
+      }
+      else{
+        dispatch(ServerConnectSuccess());
+        // dispatch(disconnectServer())
+
+      }
     }
     
     if (userData) {

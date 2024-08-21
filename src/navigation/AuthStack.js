@@ -33,9 +33,16 @@ import { useSelector } from "react-redux";
 const Stack = createNativeStackNavigator();
 
 const AuthStack = ({ navigation }) => {
+
+    console.log("_+_+_+_+_+_+_+_{{{{{{{{{{{{{{{{{{{{_+_+_+_+_{{{{{{{{+++_+_+_+_())()()()()()()()()}}}}}}}}}}}}}}}}}}}}}}}}}}}}")
+// Ensure the stack resets when serverConnected changes
+
+
     const { serverConnected } = useSelector((state) => state.serverConnect);
+    // const serverConnected = true;
     // Generate a unique key based on the serverConnected value
     const navigatorKey = serverConnected ? 'logged-in' : 'logged-out';
+    console.log("======================================================= serverConnected", serverConnected, navigatorKey)
 
     return (
         <Stack.Navigator key={navigatorKey} initialRouteName={serverConnected ? LOGIN_SCREEN : SERVER_CONNECT_SCREEN}>

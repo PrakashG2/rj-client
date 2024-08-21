@@ -7,6 +7,10 @@ import {FONT} from '../../utilities/fonts';
 import { closeDrawer } from './drawerSlice';
 import { logout } from '../../screens/Login/loginReducer';
 import { disconnectServer } from '../../screens/ServerConnect/serverConnectSlice';
+import { configuration } from '../../common/user';
+import RNRestart from 'react-native-restart'; // Import package from node modules
+import { showLoader } from '../customLoader/reducer';
+
 
 const Drawer = ({ navigation }) => {
   // Redux selector
@@ -29,9 +33,17 @@ const Drawer = ({ navigation }) => {
 
    // LOGOUT BUTTON
    const handleLogoutButton = () => {
-    dispatch(logout())
+    // configuration.removeConfigData()
+    dispatch(showLoader())
+
     dispatch(closeDrawer())
+    dispatch(logout())
+    RNRestart.restart();
+
+
     // dispatch(disconnectServer())
+
+    // navigation.navigate('ServerConnectScreen')
     
   }
 

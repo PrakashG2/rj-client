@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { user } from '../../common/user';
+import { navigate } from '../../navigation/NavigationService';
 
 const initialState = {
     value: 0,
